@@ -1,0 +1,96 @@
+type http_request_result = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type http_header = 
+ record {
+   name: text;
+   value: text;
+ };
+type YieldInfo = 
+ record {
+   annualYieldRate: float64;
+   monthlyYieldAsset: float64;
+   monthlyYieldNOK: float64;
+   stakedQty: float64;
+   symbol: text;
+   yearlyYieldAsset: float64;
+   yearlyYieldNOK: float64;
+ };
+type TransformationOutput = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type TransformationInput = 
+ record {
+   context: blob;
+   response: http_request_result;
+ };
+type Time = int;
+type PriceData = 
+ record {
+   isLive: bool;
+   isMockData: bool;
+   lastUpdated: Time;
+   priceNOK: float64;
+   priceUSD: float64;
+   symbol: text;
+ };
+type PortfolioSummary = 
+ record {
+   assets: vec AssetWithPrice;
+   hasLiveData: bool;
+   lastPriceUpdate: opt Time;
+   totalValueNOK: float64;
+   usdNokRate: float64;
+ };
+type PortfolioSnapshot = 
+ record {
+   date: text;
+   perAssetValues: vec record {
+                         text;
+                         float64;
+                       };
+   recordedAt: Time;
+   totalValueNOK: float64;
+ };
+type AssetWithPrice = 
+ record {
+   holding: AssetHolding;
+   price: opt PriceData;
+   valueNOK: float64;
+ };
+type AssetType = 
+ variant {
+   Crypto;
+   Stock;
+ };
+type AssetHolding = 
+ record {
+   assetType: AssetType;
+   name: text;
+   quantity: float64;
+   stakedQty: float64;
+   symbol: text;
+   yieldRate: float64;
+ };
+service : {
+  addAsset: (holding: AssetHolding) -> ();
+  clearAllSnapshots: () -> ();
+  deleteAsset: (symbol: text) -> (bool);
+  getAsset: (symbol: text) -> (opt AssetHolding);
+  getCurrentPrices: () -> (vec PriceData);
+  getHistoricalSnapshots: () -> (vec PortfolioSnapshot);
+  getLastNSnapshots: (n: nat) -> (vec PortfolioSnapshot);
+  getPortfolio: () -> (vec AssetHolding);
+  getPortfolioSummary: () -> (PortfolioSummary);
+  getYieldInfo: () -> (vec YieldInfo);
+  recordDailySnapshot: () -> (bool);
+  refreshPrices: () -> (text);
+  transform: (input: TransformationInput) -> (TransformationOutput) query;
+  updateAsset: (holding: AssetHolding) -> (bool);
+}

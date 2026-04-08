@@ -1,0 +1,28 @@
+{
+  "overview": "A personal investment dashboard that tracks your ICP, BTC, BMNR, MSTR, and SBET holdings in real time. Displays live NOK portfolio value, yield from staked ICP, goal progress toward 10 million NOK, and portfolio simulations — all in a premium dark interface.",
+  "features": [
+    "Live price updates via Finnhub (stocks) and CoinGecko (crypto)",
+    "Total portfolio value in NOK with daily change",
+    "Historical portfolio graph (7d, 30d, 90d, 1y, all-time)",
+    "Yield calculator for staked ICP at 7.7% annual",
+    "Goal tracker toward 10 million NOK with progress bar",
+    "Interactive scenario simulator (bull/base/bear, 1–10 year projections)",
+    "Manual portfolio management: buy, sell, add new assets",
+    "Data freshness indicators per asset (green/red status)",
+    "Mock data fallback with clear offline labeling",
+    "6-tab navigation: Dashboard, Portfolio, Yield, Goal, Simulator, Settings"
+  ],
+  "category": "productivity",
+  "tags": [
+    "investment",
+    "portfolio",
+    "dashboard",
+    "crypto",
+    "stocks",
+    "nok",
+    "personal-finance",
+    "yield",
+    "goal-tracking"
+  ],
+  "last_updated": "2026-04-07T20:17:15.784Z"
+}

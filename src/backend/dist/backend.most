@@ -1,0 +1,60 @@
+// Version: 1.0.0
+type AssetHolding__808843686 =
+  {
+    assetType : AssetType__114879910;
+    name : Text;
+    quantity : Float;
+    stakedQty : Float;
+    symbol : Text;
+    yieldRate : Float
+  };
+type AssetType__114879910 = {#Crypto; #Stock};
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type Int__270357528 = Int__616954475;
+type Int__616954475 = Int;
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type PortfolioSnapshot__793723848 =
+  {
+    date : Text;
+    perAssetValues : [(Text, Float)];
+    recordedAt : Time__900049286;
+    totalValueNOK : Float
+  };
+type PriceData__335972004 =
+  {
+    isLive : Bool;
+    isMockData : Bool;
+    lastUpdated : Time__900049286;
+    priceNOK : Float;
+    priceUSD : Float;
+    symbol : Text
+  };
+type Time__796480547 = Int__270357528;
+type Time__900049286 = Time__796480547;
+actor {
+  stable holdings :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?AssetHolding__808843686]];
+      var elementIndex : Nat__490723111
+    };
+  stable prices :
+    {
+      var root : Node__46230540<Text, PriceData__335972004>;
+      var size : Nat__490723111
+    };
+  stable snapshots :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?PortfolioSnapshot__793723848]];
+      var elementIndex : Nat__490723111
+    };
+  stable usdNokRate : {var value : Float}
+};
